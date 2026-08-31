@@ -317,8 +317,8 @@ Table functions return a set of rows
 
 ###### Create a Function
 ```
-CREATE [OR REPLACE] FUNCTION <catalog-name>.<schema-name>.<function-name>(<argument-name> <argument-type>, ...)
-RETURNS <return-type>
+CREATE [OR REPLACE] FUNCTION <catalog-name>.<schema-name>.<function-name>(<argument-name> <data-type>, ...)
+RETURNS <data-type>
 RETURN <function-body>;
 ```
  
