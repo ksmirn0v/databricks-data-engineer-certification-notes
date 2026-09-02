@@ -7,6 +7,7 @@ A high-level overview of the Databricks platform.
 > - [Workspace Architecture](#workspace-architecture)
 >   - [Serverless Workspace Architecture](#serverless-workspace-architecture)
 >   - [Classic Workspace Architecture](#classic-workspace-architecture)
+> - [Workspace Storage](#workspace-storage)
 > - [Workspace UI](#workspace-ui)
 > - [Account and Workspaces](#account-and-workspaces)
 >   - [Account](#account)
@@ -70,6 +71,14 @@ Storage:
 - default storage is used only for specific features
 
 ![](../assets/classic-workspace-architecture.png)
+
+---
+
+## Workspace Storage
+
+A workspace storage consists of:
+- workspace file system data (Notebooks/SQL queries/Alerts/Libraries/Python files)
+- workspace system data (Files generated internally, e.g. Notebook revisions, Job run results, Cluster logs)
 
 ---
 
