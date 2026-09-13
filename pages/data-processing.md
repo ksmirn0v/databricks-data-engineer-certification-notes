@@ -340,6 +340,7 @@ options:
   - `.option("skipChangeCommits", <boolean>)`
   - `.option("startingTimestamp", <optional[string]>)`
   - `.option("startingVersion", <optional[int]>)`
+  - `.option("readChangeData", <boolean>)`
 
 ### Writing the Stream
 
@@ -679,11 +680,11 @@ To enable schema inference and evolution, use this option:
 For formats that don't encode data types Auto Loader encodes all columns as strings.
 
 The schema evolution mode is controlled by `cloudFiles.schemaEvolutionMode`:
-- `addNewColumns` (stream fails -> schema is updated -> restart stream)
+- `addNewColumns` (stream fails -> schema is updated -> restart stream; default if schema is provided)
 - `addNewColumnsWithTypeWidening` (stream fails - schema is updated -> restart stream)
 - `rescue` (stream doesn't fail; new columns are saved in the rescued data column)
 - `failOnNewColumns` (stream fails -> waiting for manual update)
-- `none` (stream doesn't fail; no schema evolution)
+- `none` (stream doesn't fail; no schema evolution; default if schema is provided)
 
 2 file detection modes:
 - directory listing mode (detecting files by listing the input directory)
@@ -805,6 +806,17 @@ Each CDC record from the source database includes:
 - A sequence number or timestamp for deterministic ordering
 
 CDC for Delta Tables is called Change Data Feed (CDF).
+To query the change data:
+```
+SELECT * FROM table_changes(<table>, start_version[, end_version]);
+SELECT * FROM table_changes(<table>, start_timestamp[, end_timestamp]);
+```
+
+CDF can be enabled by setting a table property:
+```
+CREATE TABLE <table>(<column-name> <data-type>, ...) TBLPROPERTIES (delta.enableChangeDataFeed = true);
+ALTER TABLE <table> SET TBLPROPERTIES (delta.enableChangeDataFeed = true);
+```
 
 CDC feeds can be processed with:
 - AUTO CDC (when a source is set up to produce Change Data Capture feed)

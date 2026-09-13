@@ -23,6 +23,9 @@
 >     - [Masking a column](#masking-a-column)
 >     - [Filtering rows](#filtering-rows)
 >   - [ABAC Policies](#abac-policies)
+> - [Delta Sharing](#delta-sharing)
+>   - [Provider Commands](#provider-commands)
+>   - [Recipient Commands](#recipient-commands)
 > - [System Tables](#system-tables)
 
 ---
@@ -334,6 +337,56 @@ ALTER TABLE <table> DROP ROW FILTER;
 ABAC (Attribute-Based Access Control) policies allow you
 to define Column masks and Row filters based on table tags
 (more specifically, so-called governed tags).
+
+---
+
+### Delta Sharing
+
+[Reference](https://docs.databricks.com/aws/en/delta-sharing/)
+ 
+An open protocol for securely sharing data and AI assets
+(tables, views, volumes, models, notebooks) with recipients:
+- outside your metastore
+- outside Databricks
+
+Two modes:
+- **Databricks-to-Databricks (D2D)**:
+  both sides on Unity Catalog; 
+  the recipient is identified by their metastore sharing identifier;
+  no tokens to manage.
+- **Open sharing**: 
+  the recipient uses a credential (bearer token)
+  and any Delta Sharing client (pandas, Spark, Power BI, ...); 
+  works off-Databricks.
+
+#### Provider Commands
+
+Create a share:
+```
+CREATE SHARE [IF NOT EXISTS] <share-name>;
+```
+
+Add an object (_e.g._ table/volume) to a share:
+```
+ALTER SHARE ADD <object-type> <object-name>;
+```
+
+Create a recipient:
+```
+CREATE RECIPIENT <recipient-name>;
+```
+
+Grant a recipient a read access:
+```
+GRANT SELECT ON SHARE <share-name> TO RECIPIENT <recipient-name>;
+```
+
+#### Recipient Commands
+
+Create a catalog from a share:
+```
+CREATE CATALOG <catalog-name> USING SHARE <provider-name>.<share-name>;
+```
 
 ---
 

@@ -6,18 +6,18 @@ to run data engineering, data science, and analytics workloads.
 
 ## Table of Contents
 
-- [Concepts](#concepts)
-  - [Instance Types](#instance-types)
-  - [Cluster](#cluster)
-- [Serverless Compute](#serverless-compute)
-- [Classic Compute](#classic-compute)
-  - [Create Compute](#create-compute)
-    - [Policy](#policy)
-    - [Access Mode](#access-mode)
-    - [Performance](#performance)
-    - [Other Options](#other-options)
-  - [Instance Pools](#instance-pools)
-- [SQL Warehouses](#sql-warehouses)
+> - [Concepts](#concepts)
+>   - [Instance Types](#instance-types)
+>   - [Cluster](#cluster)
+> - [Serverless Compute](#serverless-compute)
+> - [Classic Compute](#classic-compute)
+>   - [Create Compute](#create-compute)
+>     - [Policy](#policy)
+>     - [Access Mode](#access-mode)
+>     - [Performance](#performance)
+>     - [Other Options](#other-options)
+>   - [Instance Pools](#instance-pools)
+> - [SQL Warehouses](#sql-warehouses)
 
 ---
 

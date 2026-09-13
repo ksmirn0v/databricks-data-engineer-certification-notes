@@ -37,7 +37,11 @@ default table format in Databricks
 >   - [Selecting a Version](#selecting-a-version)
 >   - [Restoring to a Version](#restoring-to-a-version)
 > - [Optimizations](#optimizations)
+>   - [Partitioning](#partitioning)
 >   - [Optimize](#optimize)
+>   - [Auto Optimize](#auto-optimize)
+>     - [Optimized Writes](#optimized-writes)
+>     - [Auto Compaction](#auto-compaction)
 >   - [Z-Ordering](#z-ordering)
 >   - [Liquid Clustering](#liquid-clustering)
 >   - [Vacuuming](#vacuuming)
@@ -329,12 +333,63 @@ RESTORE TABLE <table> TO VERSION AS OF <int>;
 [Predictive Optimization](https://docs.databricks.com/aws/en/optimizations/predictive-optimization)\
 [Liquid Clustering](https://docs.databricks.com/aws/en/tables/clustering#automatic-liquid-clustering)
 
+### Partitioning
+
+A partition is a subset of rows that share the same value for
+predefined partitioning columns.
+
+```
+CREATE TABLE [IF NOT EXISTS] <table>(<column-name> <data-type>, ...)
+PARTITIONED BY (<column-name>, ...);
+```
+
+Low cardinality fields should be used for partitioning. 
+If most partitions < 1 Gb of data, the table is over-partitioned.
+
 ### Optimize
 
 The `OPTIMIZE` command compacts many small files 
 into fewer, larger ones (bin-packing), improving read performance.
 ```
 OPTIMIZE <table>;
+```
+
+### Auto Optimize
+
+**Auto Optimize** is a pair of Delta Lake features
+that automatically keep file sizes healthy (128 Mb by default),
+so you don't end up with the "small files problem".
+
+#### Optimized Writes
+
+Before writing, Spark adds a shuffle to rebalance the data,
+so it produces fewer, larger files (targeting roughly 128 Mb),
+instead of one small file per partition/task.
+
+SQL:
+```
+ALTER TABLE <table> SET TBLPROPERTIES ('delta.autoOptimize.optimizeWrite' = 'true');
+```
+
+PySpark:
+```
+spark.conf.set('spark.databricks.delta.optimizeWrite.enabled', 'true')
+```
+
+#### Auto Compaction
+
+After a write finishes, if the table has accumulated too many small files,
+Databricks automatically runs a small compaction pass
+that combines them into larger files (targeting roughly 128 Mb).
+
+SQL:
+```
+ALTER TABLE <table> SET TBLPROPERTIES ('delta.autoOptimize.autoCompact' = 'true');
+```
+
+PySpark:
+```
+spark.conf.set('spark.databricks.delta.autoOptimize.autoCompact', 'true')
 ```
  
 ### Z-Ordering
