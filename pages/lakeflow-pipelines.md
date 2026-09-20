@@ -126,7 +126,7 @@ It's defined with:
 
 PySpark:
 ```
-@dp.table()
+@dp.materialized_view
 def <target-table>():
   return (
     spark.read.table("<source-table>)
@@ -378,6 +378,30 @@ formats
 - Azure Event Hub
 - ...
 
+###### Examples
+
+PySpark:
+```
+from pyspark import pipelines as dp
+
+# Create a ForEachBatch sink
+@dp.foreach_batch_sink(name = "<target-sink>")
+def <target-sink>(df, batch_id):
+  # Custom logic here. You can perform merges,
+  # write to multiple destinations, etc.
+  return
+
+# Create source data for example:
+@dp.table()
+def <source-table>():
+  return spark.range(5)
+
+# Add sink to an append flow:
+@dp.append_flow(target="<target-sink>")
+def <flow-name>():
+  return spark.readStream.format("delta").table("<source-table>")
+```
+
 ### Replace Where
 
 recompute and overwrite a targeted subset of a table
@@ -412,30 +436,6 @@ SELECT
 FROM <source-table-1> st1
 JOIN <source-table-2> st2
   ON st1.<join-column-name> = st2.<join-column-name>;
-```
-
-###### Examples
-
-PySpark:
-```
-from pyspark import pipelines as dp
-
-# Create a ForEachBatch sink
-@dp.foreach_batch_sink(name = "<target-sink>")
-def <target-sink>(df, batch_id):
-  # Custom logic here. You can perform merges,
-  # write to multiple destinations, etc.
-  return
-
-# Create source data for example:
-@dp.table()
-def <source-table>():
-  return spark.range(5)
-
-# Add sink to an append flow:
-@dp.append_flow(target="<target-sink>")
-def <flow-name>():
-  return spark.readStream.format("delta").table("<source-table>")
 ```
 
 ---

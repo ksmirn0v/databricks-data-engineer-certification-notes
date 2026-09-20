@@ -366,9 +366,9 @@ Create a share:
 CREATE SHARE [IF NOT EXISTS] <share-name>;
 ```
 
-Add an object (_e.g._ table/volume) to a share:
+Add an object (_e.g._ table/volume) to a share (optionally, allow CDF and time travel):
 ```
-ALTER SHARE ADD <object-type> <object-name>;
+ALTER SHARE <share-name> ADD <object-type> <object-name> [WITH HISTORY];
 ```
 
 Create a recipient:
@@ -392,6 +392,8 @@ CREATE CATALOG <catalog-name> USING SHARE <provider-name>.<share-name>;
 
 ## System Tables
 
+[system.billing](https://docs.databricks.com/aws/en/admin/system-tables/billing)
+
 A Databricks-hosted analytical store of the account's operational data,
 exposed as read-only Delta tables in the `system` catalog and governed by Unity Catalog.
 
@@ -407,6 +409,7 @@ Key Schemas:
     - `usage_unit` (`DBU`, `MILLISECOND`)
     - `usage_quantity`
     - `usage_metadata`
+    - `sku_type` - compute resource type (_e.g_ `ALL_PURPOSE_COMPUTE`, `JOBS_COMPUTE` _etc._)
   - `list_prices` - price history (join to `usage` for estimating costs)
 - `system.lakeflow` - job & pipeline monitoring
   - `jobs` - job definitions

@@ -17,6 +17,7 @@ default table format in Databricks
 >   - [Create Table as Select (CTAS)](#create-table-as-select-ctas)
 >   - [Generated Columns](#generated-columns)
 >   - [Other Options](#other-options)
+> - [Table Properties](#table-properties)
 > - [Clone a Table](#clone-a-table)
 >   - [Deep Clone](#deep-clone)
 >   - [Shallow Clone](#shallow-clone)
@@ -128,6 +129,28 @@ OPTIONS(<key> = <value>, ...)
 TBLPROPERTIES(<key> = <value>, ...)
 ...;
 ```
+
+---
+
+## Table Properties
+
+To set table properties on an existing table:
+```
+ALTER TABLE <table-name> SET TBLPROPERTIES ('delta.<property-name>' = <property-value>);
+```
+
+It's possible to set a table property using Spark Session configurations:
+```
+SET spark.databricks.delta.properties.defaults.<property-name> = <property-value>
+```
+
+Some important properties include:
+- `appendOnly` - make a table append-only, forbid updating or deleting records
+- `autoOptimize.optimizeWrite`
+- `autoOptimize.autoCompact`
+- `enableChangeDataFeed`
+- `enableDeletionVectors`
+- 
 
 ---
 

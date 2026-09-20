@@ -32,9 +32,10 @@ providing orchestration for data processing workloads to run multiple tasks.
 
 ## Concepts:
 
-[Schedules and Triggers](https://docs.databricks.com/aws/en/jobs/triggers)
-[Fan-In and Fan-Out Architectures](https://docs.databricks.com/aws/en/data-engineering/fan-in-fan-out)
-[Repair Job Failures](https://docs.databricks.com/aws/en/jobs/repair-job-failures)
+[Schedules and Triggers](https://docs.databricks.com/aws/en/jobs/triggers)\
+[Fan-In and Fan-Out Architectures](https://docs.databricks.com/aws/en/data-engineering/fan-in-fan-out)\
+[Repair Job Failures](https://docs.databricks.com/aws/en/jobs/repair-job-failures)\
+[Task Types](https://docs.databricks.com/aws/en/jobs/configure-task#types-of-tasks)
 
 - **Job**:
   the primary resource for coordinating, scheduling, and running your operations

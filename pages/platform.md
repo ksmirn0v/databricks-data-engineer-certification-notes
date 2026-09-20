@@ -208,6 +208,16 @@ DESCRIBE CATALOG [EXTENDED] <catalog-name>;
 DROP CATALOG [IF EXISTS] <catalog-name> [CASCADE];
 ```
 
+###### Describe a Catalog
+```
+DESCRIBE CATALOG [EXTENDED] <catalog-name>;
+```
+The description contains:
+- catalog name
+- owner
+- catalog type
+- [extended] creation/modification timestamps
+
 #### Schema
 
 The containers within catalogs that provide more granular level of organization.\
@@ -233,6 +243,16 @@ DESCRIBE SCHEMA [EXTENDED] <catalog-name>.<schema-name>;
 DROP SCHEMA [IF EXISTS] <catalog-name>.<schema-name> [CASCADE];
 ```
 
+###### Describe a Schema
+```
+DESCRIBE SCHEMA [EXTENDED] <catalog-name>.<schema-name>;
+```
+The description contains:
+- database name
+- description
+- location path
+- [extended] properties
+
 #### Table
 
 Tables organize and govern access to structured data.\
@@ -256,6 +276,24 @@ Setting a managed table has the advantages:
 - redirects path-based reads and writes 
   to allow legacy code to function after conversion
 - supports rolling back the converted managed table to an external table
+
+###### Describe a Table
+```
+DESCRIBE TABLE [EXTENDED] <catalog-name>.<schema-name>.<table-name>;
+```
+The description contains:
+- column names with data types and comments
+- [extended] location path
+- [extended] type (managed/external)
+- [extended] comment
+- [extended] table properties
+- [extended] row filters
+- [extended] column masks
+
+If you're interested about a particular state of a Delta table(_e.g._ file count _etc.):
+```
+DESCRIBE DETAIL <catalog-name>.<schema-name>.<table-name>;
+```
 
 #### View
 

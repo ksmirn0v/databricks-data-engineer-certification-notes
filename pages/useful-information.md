@@ -15,6 +15,7 @@
 >     - [Pivot](#pivot)
 >     - [Higher-Order Functions](#higher-order-functions)
 >     - [User-Defined Functions](#user-defined-functions)
+> - [SQL Hints](#sql-hints)
 > - [Notebook Commands](#notebook-commands)
 >   - [Magic Commands](#magic-commands)
 >   - [dbutils](#dbutils)
@@ -27,6 +28,9 @@
 >   - [Setup and Authentication](#setup-and-authentication)
 >   - [File System](#file-system-1)
 >   - [Jobs](#jobs)
+> - [REST API](#rest-api)
+>   - [Pipelines](#pipelines)
+>   - [Jobs](#jobs-1)
 
 ---
 
@@ -236,6 +240,23 @@ SELECT <function>(<argument-name>, ...) AS <name> FROM <table>;
 
 ---
 
+## SQL Hints
+
+Hints suggest specific approaches to generate an execution plan.
+
+Syntax:
+```
+/*+ { partition_hint | join_hint | skew_hint } [, ...] */
+```
+
+Examples:
+```
+SELECT /*+ BROADCAST(<table-2>) */ * FROM <table-1> 
+INNER JOIN <table-2> ON <table-1>.<column-name-1> = <table-2>.<column-name-2>;
+```
+
+---
+
 ## Notebook Commands
 
 ### Magic Commands
@@ -314,5 +335,27 @@ All these commands can be used with `%fs <command>`.
 - `databricks jobs get <job-id>` - show a job's configuration
 - `databricks jobs run-now <job-id>` - trigger a job run immediately
 - `databricks jobs delete <job-id>` - delete a job
+
+---
+
+## REST API
+
+REST API requests are authenticated through:
+- Personal Access Token (PAT) / Bearer Token
+- OAuth token from a service principal
+
+### Pipelines
+
+- `POST /api/2.0/pipelines` - create a pipeline, return `pipeline_id`
+- `GET /api/2.0/pipelines/<pipeline-id>` - get a pipeline definition
+- `GET /api/2.0/pipelines/<pipline-id>/events` - event log entries of a pipeline
+
+### Jobs
+
+- `POST /api/2.2/jobs/create` - create a job, return `job_id`
+- `POST /api/2.2/jobs/run-now` - trigger a job, return `run_id`
+- `GET /api/2.2/jobs/list` - get a job list
+- `GET /api/2.2/jobs/get?job_id=<job-id>` - get a job definition
+- `GET /api/2.2/jobs/runs/get?run_id=<run-id>` - get a status of a run
 
 ---
