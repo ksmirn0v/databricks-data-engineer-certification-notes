@@ -202,21 +202,16 @@ CREATE CATALOG [IF NOT EXISTS] <catalog-name>
 ```
 DESCRIBE CATALOG [EXTENDED] <catalog-name>;
 ```
-
-###### Delete a Catalog
-```
-DROP CATALOG [IF EXISTS] <catalog-name> [CASCADE];
-```
-
-###### Describe a Catalog
-```
-DESCRIBE CATALOG [EXTENDED] <catalog-name>;
-```
 The description contains:
 - catalog name
 - owner
 - catalog type
 - [extended] creation/modification timestamps
+
+###### Delete a Catalog
+```
+DROP CATALOG [IF EXISTS] <catalog-name> [CASCADE];
+```
 
 #### Schema
 
@@ -237,21 +232,16 @@ CREATE SCHEMA [IF NOT EXISTS] <catalog-name>.<schema-name>
 ```
 DESCRIBE SCHEMA [EXTENDED] <catalog-name>.<schema-name>;
 ```
- 
-###### Delete a Schema
-```
-DROP SCHEMA [IF EXISTS] <catalog-name>.<schema-name> [CASCADE];
-```
-
-###### Describe a Schema
-```
-DESCRIBE SCHEMA [EXTENDED] <catalog-name>.<schema-name>;
-```
 The description contains:
 - database name
 - description
 - location path
 - [extended] properties
+ 
+###### Delete a Schema
+```
+DROP SCHEMA [IF EXISTS] <catalog-name>.<schema-name> [CASCADE];
+```
 
 #### Table
 

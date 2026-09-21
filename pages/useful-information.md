@@ -104,7 +104,7 @@ to_json(<struct-column>)
 
 These are the most common functions, applied to arrays:
 - `explode()` - unwrap an array, so each element gets in its own row
-- `explode_outer()` - the same as `exmplode()` but keeps nulls and empty elements
+- `explode_outer()` - the same as `explode()` but keeps nulls and empty elements
 - `posexplode()` - `explode()` with the element position
 - `collect_set()` - aggregate rows into an array with unique elements (should be used with `GROUP BY`)
 - `collect_list()` - aggregate rows into an array (should be used with `GROUP BY`)

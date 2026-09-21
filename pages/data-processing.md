@@ -340,7 +340,7 @@ options:
   - `.option("skipChangeCommits", <boolean>)`
   - `.option("startingTimestamp", <optional[string]>)`
   - `.option("startingVersion", <optional[int]>)`
-  - `.option("readChangeData", <boolean>)`
+  - `.option("readChangeFeed", <boolean>)`
 
 ### Writing the Stream
 
@@ -387,7 +387,7 @@ Trigger modes:
 - `.trigger(processingTime='<string>')` (check the data with a defined period, _e.g._ `10 seconds`)
 - `.trigger(once=True)` (process as much data as is available at the time streaming job starts as one single batch)
 - `.trigger(availableNow=True)` (processes as much data as is available at the time streaming job starts as multiple micro-batches)
-- `.trigger(realTime='<string>')`(stream processing runs continuously with ultra-low latency, _e.g._ `5 minutes`)
+- `.trigger(realTime='<string>')`(stream processing runs continuously with ultra-low latency with a predefined checkpointing periods, _e.g._ `5 minutes`)
 
 The options `maxFilesPerTrigger` and `maxBytesPerTrigger` can control the load on each micro-batch.
 
@@ -634,7 +634,7 @@ There's a possibility to create connectors for:
 [Common Data Loading Patterns](https://docs.databricks.com/aws/en/ingestion/cloud-object-storage/auto-loader/patterns#filtering-directories-or-files-using-glob-patterns)
 
 Auto Loader simplifies streaming files from the Cloud Storage.
-It's possible to do file load without Auto Loader with (but it's less efficient).
+It's possible to do file load without Auto Loader (but it's less efficient).
 
 As files are discovered, their metadata is persisted in a scalable key-value store (RocksDB)
 in the checkpoint location of your Auto Loader pipeline.

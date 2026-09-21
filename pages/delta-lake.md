@@ -150,7 +150,7 @@ Some important properties include:
 - `autoOptimize.autoCompact`
 - `enableChangeDataFeed`
 - `enableDeletionVectors`
-- 
+- ...
 
 ---
 
@@ -182,19 +182,19 @@ Constraints guarantee that every row in the table satisfies them.
 
 ### Check Constraints
 ```
-ALTER TABLE <table>;
+ALTER TABLE <table>
 ADD CONSTRAINT <constaint-name> CHECK (<condition>);
 ```
 
 Example:
 ```
-ALTER TABLE <table>;
+ALTER TABLE <table>
 ADD CONSTRAINT <constaint-name> CHECK (date > '2026-01-01');
 ```
  
 ### Not Null Constraints
 ```
-ALTER TABLE <table>;
+ALTER TABLE <table>
 ALTER COLUMN <column-name> SET NOT NULL;
 ```
 
